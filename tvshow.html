@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Show Grid</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link rel="stylesheet" href="tvshow.css">
+    
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-container">
+            <div class="logo-container"><h1 class="logo">MovieNet</h1></div>
+            <div class="menu-container">
+                <ul class="menu-list">
+                    <li class="menu-list-item active"><a href="index1.html">Home</a></li>
+                    <li class="menu-list-item"><a href="index2.html">Movies</a></li>
+                    <li class="menu-list-item"><a href="tvshow.html">Tv-Shows</a></li>
+                </ul>
+            </div>
+            <form id="form">
+                <input type="text" class="search" id="search" placeholder="Search">
+            </form>
+            <div class="filter-section">
+                <label for="genre-filter">Filter by Genre:</label>
+                <select id="genre-filter">
+                    <option value="all">All Genres</option>
+                </select>
+            </div>
+            <div class="profile-container">
+                <i class=" profile-picture fa-solid fa-user"></i>
+                <div class="profile-text-container">
+                    <span class="profile-text">Profile</span>
+                    <i class="fa-solid fa-caret-down"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar">
+        <a href="index1.html"><i class="sidebar-icon fa-solid fa-house-chimney"></i></a> 
+        <a href="index2.html"><i class="sidebar-icon fa-solid fa-film"></i></a> 
+        <a href="tvshow.html"><i class="sidebar-icon fa-solid fa-tv"></i></a>
+        <div class="sidebar-settings">
+          <i class="fa-solid fa-gear" style="padding-bottom: 20px"></i>
+          <i class="sidebar-icon fa-solid fa-user-group"></i>
+        </div>
+      </div>
+    <div id="tvShown"></div>
+    <script>
+ document.addEventListener("DOMContentLoaded", () => {
+    const darkmode = localStorage.getItem("darkmode");
+
+    // Apply dark or light mode based on preference
+    if (darkmode === "enabled") {
+        document.body.classList.add("darkmode");
+        document.body.classList.remove("lightmode");
+    } else {
+        document.body.classList.remove("darkmode");
+        document.body.classList.add("lightmode");
+    }
+
+    const API_URL = 'https://api.themoviedb.org/3/discover/tv?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c&page=1';
+    const IMG_PATH = 'https://image.tmdb.org/t/p/w1280';
+    const SEARCH_API = 'https://api.themoviedb.org/3/search/tv?api_key=3fd2be6f0c70a2a598f084ddfb75487c&query=';
+    const GENRE_API_URL = 'https://api.themoviedb.org/3/genre/tv/list?api_key=3fd2be6f0c70a2a598f084ddfb75487c';
+
+    const tvShown = document.getElementById('tvShown');
+    const form = document.getElementById('form');
+    const search = document.getElementById('search');
+    const genreFilter = document.getElementById('genre-filter');
+
+    let genreMap = {};
+    let allTVShows = [];
+
+    // Fetch genres and create a genre map
+    async function fetchGenres() {
+        const res = await fetch(GENRE_API_URL);
+        const data = await res.json();
+        data.genres.forEach(genre => {
+            genreMap[genre.id] = genre.name;
+            const option = document.createElement('option');
+            option.value = genre.id;
+            option.textContent = genre.name;
+            genreFilter.appendChild(option);
+        });
+    }
+
+    // Fetch and display TV shows
+    async function getTVShows(url) {
+        const res = await fetch(url);
+        const data = await res.json();
+        allTVShows = data.results;
+        showTVShows(allTVShows);
+    }
+
+    function showTVShows(tvShows) {
+        tvShown.innerHTML = '';
+
+        const tvShowsGrid = document.createElement('div');
+        tvShowsGrid.classList.add('movies-grid');
+
+        tvShows.forEach((show) => {
+            const { id, name, poster_path, vote_average, first_air_date, genre_ids } = show;
+
+            // Map genre_ids to genre names
+            const genres = genre_ids.map(id => genreMap[id]).join(', ');
+
+            const tvShowEl = document.createElement('div');
+            tvShowEl.classList.add('movie-card');
+
+            tvShowEl.innerHTML = `
+                <div class="card-head">
+                    <img src="${IMG_PATH}${poster_path}" alt="${name}" class="card-img" />
+                    <div class="card-overlay"></div>
+                    <div class="bookmark">
+                        <i class="fa-solid fa-bookmark"></i>
+                    </div>
+                    <div class="rating">
+                        <i class="fa-solid fa-star"></i>
+                        <span>${vote_average.toFixed(1)}</span>
+                    </div>
+                    <div class="play">
+                        <ion-icon name="play-circle"></ion-icon>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">${name}</h3>
+                    <div class="card-info">
+                        <span class="genre">${genres}</span>
+                        <span class="year">${first_air_date.split("-")[0]}</span>
+                    </div>
+                    <a href="details1.html?id=${id}" class="view-details">View Details</a>
+                </div>
+            `;
+            tvShowsGrid.appendChild(tvShowEl);
+        });
+
+        tvShown.appendChild(tvShowsGrid);
+    }
+
+    // Filter TV shows by genre
+    genreFilter.addEventListener('change', () => {
+        const selectedGenreId = genreFilter.value;
+        if (selectedGenreId === 'all') {
+            showTVShows(allTVShows);
+        } else {
+            const filteredShows = allTVShows.filter(show => show.genre_ids.includes(parseInt(selectedGenreId)));
+            showTVShows(filteredShows);
+        }
+    });
+
+    // Search functionality
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const searchTerm = search.value;
+
+        if (searchTerm && searchTerm !== '') {
+            getTVShows(SEARCH_API + searchTerm);
+            search.value = '';
+        } else {
+            window.location.reload();
+        }
+    });
+
+    // Initialize
+    fetchGenres().then(() => getTVShows(API_URL));
+});
+    </script>
+</body>
+</html>

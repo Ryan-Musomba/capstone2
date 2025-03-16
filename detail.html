@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link rel="stylesheet" href="detail.css">
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="navbar-container">
+        <div class="logo-container"><h1 class="logo">MovieNet</h1></div>
+        <div class="menu-container">
+          <ul class="menu-list">
+            <li class="menu-list-item active"><a href="index1.html">Home</a></li>
+            <li class="menu-list-item"><a href="index2.html">Movies</a></li>
+            <li class="menu-list-item"><a href="tvshow.html">Tv-Shows</a></li>
+          </ul>
+        </div>
+        
+        <div class="profile-container">
+          <i class=" profile-picture fa-solid fa-user"></i>
+          <div class="profile-text-container">
+            <span class="profile-text">Profile</span>
+            <i class="fa-solid fa-caret-down"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <a href="index1.html"><i class="sidebar-icon fa-solid fa-house-chimney"></i></a> 
+      <a href="index2.html"><i class="sidebar-icon fa-solid fa-film"></i></a> 
+      <a href="tvshow.html"><i class="sidebar-icon fa-solid fa-tv"></i></a>
+      <div class="sidebar-settings">
+        <i class="fa-solid fa-gear" style="padding-bottom: 20px"></i>
+        <i class="sidebar-icon fa-solid fa-user-group"></i>
+      </div>
+    </div>
+    <div id="movie-container">
+      <img id="movie-poster" src="" alt="Movie Poster" />
+      <div id="movie-details">
+        <h2 id="movie-name"></h2>
+        <p class="genre"></p>
+        <p class="duration"></p>
+        <p class="age-rating"></p>
+        <p class="description">
+        
+        </p>
+        <a href="#" id="watch-trailer">Watch Now</a>
+      </div>
+    </div>
+    <div id="trailer-section">
+      <h3></h3>
+      <iframe
+        id="trailer-video"
+        src=""
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+            const darkmode = localStorage.getItem("darkmode");
+
+            if (darkmode === "enabled") {
+                document.body.classList.add("darkmode");
+                document.body.classList.remove("lightmode");
+            } else {
+                document.body.classList.remove("darkmode");
+                document.body.classList.add("lightmode");
+            }
+        });
+      // Get the movie ID from the URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const movieId = urlParams.get('id');
+
+      // Fetch movie details and videos from the API
+      async function fetchMovieDetails(movieId) {
+        const API_KEY = '3fd2be6f0c70a2a598f084ddfb75487c';
+        const MOVIE_URL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}`;
+        const VIDEO_URL = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${API_KEY}`;
+
+        try {
+          // Fetch movie details
+          const movieRes = await fetch(MOVIE_URL);
+          const movieData = await movieRes.json();
+          populateMovieDetails(movieData);
+
+          // Fetch movie videos (trailers)
+          const videoRes = await fetch(VIDEO_URL);
+          const videoData = await videoRes.json();
+          populateTrailer(videoData.results);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      }
+
+      // Populate the movie details on the page
+      function populateMovieDetails(movie) {
+        document.getElementById('movie-poster').src = `https://image.tmdb.org/t/p/w1280${movie.poster_path}`;
+        document.getElementById('movie-name').textContent = movie.title;
+        document.querySelector('.genre').textContent = movie.genres.map(genre => genre.name).join(', ');
+        document.querySelector('.duration').textContent = `${Math.floor(movie.runtime / 60)}h ${movie.runtime % 60}m`;
+        document.querySelector('.age-rating').textContent = movie.adult ? 'R' : 'PG-13';
+        document.querySelector('.description').textContent = movie.overview;
+      }
+
+      // Populate the trailer section with the first available trailer
+      function populateTrailer(videos) {
+        const trailerSection = document.getElementById('trailer-section');
+        const trailerVideo = document.getElementById('trailer-video');
+
+        // Find the first trailer (usually of type "Trailer")
+        const trailer = videos.find(video => video.type === 'Trailer' && video.site === 'YouTube');
+
+        if (trailer) {
+          trailerVideo.src = `https://www.youtube.com/embed/${trailer.key}`;
+        } else {
+          trailerSection.innerHTML = '<h3>No trailer available</h3>';
+        }
+      }
+
+      // Fetch and display movie details and trailer
+      if (movieId) {
+        fetchMovieDetails(movieId);
+      } else {
+        // Redirect back to the main page if no movie ID is provided
+        window.location.href = 'index.html';
+      }
+    </script>
+  </body>
+</html>
