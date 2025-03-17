@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:wght@400;500;600;display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -22,7 +23,7 @@ body {
 .navbar-container {
     display: flex;
     align-items: center;
-    padding: 0 50px;
+    padding: 0 20px;
     height: 100%;
     color: white;
 }
@@ -406,7 +407,15 @@ width: 250px;
     margin: 20px;
     color: #fff;
   }
-
+  .movie-card .play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(var(--scale));
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    color: #fff;
+  }
 @media screen and (max-width: 768px) {
 .menu-container {
 display: none;

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:wght@400;500;600;display=swap');
 * {
   margin: 0;
   padding: 0;
@@ -161,8 +162,9 @@ body {
 }
 
 .featured-content {
-  height: 100vh;
+  height: 120vh;
   padding: 50px;
+  margin-top: -5%;
 }
 
 .featured-title {
@@ -297,7 +299,7 @@ body {
   transform: translate(-50%, -50%) scale(1);
 }
 
-.movie-card .card-body {
+ .card-body {
   padding: 15px;
   background: rgba(0, 0, 0, 0.7);
   flex: 1;
@@ -364,6 +366,9 @@ body {
   background-color: white;
   transform: translateX(-20px);
 }
+.card-body.active{
+  background-color: white;
+}
 
 .view-details {
   display: inline-block;
@@ -416,6 +421,11 @@ body {
   gap: 20px;
 }
 
+.profile-container {
+  position: relative;
+  cursor: pointer;
+}
+
 .dropdown-menu {
   position: absolute;
   top: 100%;
@@ -425,7 +435,6 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: none;
   z-index: 1000;
-  min-width: 150px;
 }
 
 .dropdown-menu ul {
@@ -437,31 +446,20 @@ body {
 .dropdown-menu ul li {
   padding: 10px 20px;
   white-space: nowrap;
-  transition: background-color 0.3s ease;
-}
-
-.dropdown-menu ul li:hover {
-  background-color: #444;
 }
 
 .dropdown-menu ul li a {
   color: #fff;
   text-decoration: none;
   display: block;
-  font-size: 14px;
 }
 
-#logoutBtn {
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  font-size: 150%;
-  width: 10%;
-  text-align: left;
-  padding: 10px 20px;
+.dropdown-menu ul li a:hover {
+  background-color: #444;
 }
+
 
 .profile-container.active .dropdown-menu {
   display: block;
 }
+ 

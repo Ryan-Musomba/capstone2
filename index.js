@@ -15,27 +15,27 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Logout functionality
+    
     const logoutBtn = document.getElementById("logoutBtn");
     if (logoutBtn) {
         logoutBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            localStorage.removeItem("user"); // Clear user data
-            window.location.href = "home.html"; // Redirect to home.html after logout
+            localStorage.removeItem("user"); 
+            window.location.href = "home.html"; 
         });
     }
 
     // Redirect to index1.html if the user is already logged in
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
-        window.location.href = "index1.html"; // Redirect to the main website
-    }
+    // const user = JSON.parse(localStorage.getItem("user"));
+    // if (user) {
+    //     window.location.href = "index1.html"; // Redirect to the main website
+    // }
 
     // Dark Mode Handling
     let darkmode = localStorage.getItem("darkmode");
     const darkmodeToggle = document.querySelector(".toggle-ball");
     const items = document.querySelectorAll(
-        ".container, .movie-list-title, .menu-list-item a, .card-head, .navbar-container, .sidebar, .sidebar-icon, .toggle, .toggle-ball, .arrow, .movie-info, .movie-title, .sidebar-settings, .link-movies"
+        ".container, .movie-list-title, .menu-list-item a,.card-body, .card-head, .navbar-container, .sidebar, .sidebar-icon, .toggle, .toggle-ball, .arrow, .movie-info, .movie-title, .sidebar-settings, .link-movies"
     );
     const enableDarkmode = () => {
         document.body.classList.add("darkmode");
@@ -59,11 +59,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // API Configuration
     const API_KEY = "772faacae36b66d82aeeb0b4cd204121";
-    const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w1280"; // Use a larger image size for the featured section
+    const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w1280"; 
     const MOVIE_API_URL = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`;
     const TV_SHOW_API_URL = `https://api.themoviedb.org/3/tv/top_rated?api_key=${API_KEY}&language=en-US&page=1`;
     const GENRE_API_URL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US`;
-    const TRENDING_API_URL = `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`; // Fetch trending movies or TV shows
+    const TRENDING_API_URL = `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`; 
 
     // DOM Elements
     const moviesGrid = document.querySelector(".movies-grid");
@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const res = await fetch(TRENDING_API_URL);
             const data = await res.json();
-            const trendingItem = data.results[0]; // Get the first trending item
+            const trendingItem = data.results[0]; 
 
             // Update the featured section
             featuredContent.style.background = `
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const res = await fetch(MOVIE_API_URL);
             const data = await res.json();
-            const top12Movies = data.results.slice(0, 12); // Get top 12 movies
+            const top12Movies = data.results.slice(0, 12); 
             displayMovies(top12Movies, manualSlider1);
         } catch (error) {
             console.error("Error fetching movies:", error);
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const res = await fetch(TV_SHOW_API_URL);
             const data = await res.json();
-            const top12TVShows = data.results.slice(0, 12); // Get top 12 TV shows
+            const top12TVShows = data.results.slice(0, 12); 
             displayMovies(top12TVShows, manualSlider2);
         } catch (error) {
             console.error("Error fetching TV shows:", error);
@@ -172,8 +172,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Initialize
     fetchGenres().then(() => {
-        fetchFeaturedContent(); // Fetch and display featured content
-        fetchTopMovies(); // Fetch and display top 12 movies
-        fetchTopTVShows(); // Fetch and display top 12 TV shows
+        fetchFeaturedContent(); 
+        fetchTopMovies(); 
+        fetchTopTVShows(); 
     });
 });

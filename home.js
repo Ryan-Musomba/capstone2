@@ -11,7 +11,7 @@ const wrapper = document.querySelector('.wrapper');
       document.addEventListener('DOMContentLoaded', () => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (user) {
-          window.location.href = 'index1.html'; // Redirect to the main website
+          window.location.href = 'index1.html';
         }
       });
 
