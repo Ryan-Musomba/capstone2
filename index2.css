@@ -99,7 +99,7 @@ body {
     background-color: black;
     position: fixed;
     top: 0;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     padding-top: 60px;
@@ -420,6 +420,14 @@ width: 250px;
 .menu-container {
 display: none;
 }
+.sidebar {
+    display: flex; 
+  }
+
+  .content-container {
+    margin-left: 50px;
+  }
+
 
 #form {
 margin-right: 10px;

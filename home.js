@@ -7,7 +7,7 @@ const wrapper = document.querySelector('.wrapper');
       const registerForm = document.getElementById('registerForm');
       const watchNowBtn = document.getElementById('watchNowBtn');
 
-      // Redirect to index1.html if the user is already logged in
+    
       document.addEventListener('DOMContentLoaded', () => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (user) {

@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const darkmode = localStorage.getItem("darkmode");
 
-    // Apply dark or light mode based on preference
+
     if (darkmode === "enabled") {
         document.body.classList.remove("darkmode");
         document.body.classList.add("lightmode");
@@ -53,7 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Fetch movies by genre
     async function getMoviesByGenre(genreId) {
         try {
             const res = await fetch(`https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c&with_genres=${genreId}&page=1`);
@@ -64,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Fetch movies by search term
     async function getMovies(url) {
         try {
             const res = await fetch(url);
@@ -75,7 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Display movies in a grid
     function showMovies(movies) {
         movieshown.innerHTML = '';
 
@@ -121,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
         movieshown.appendChild(moviesGrid);
     }
 
-    // Filter movies by genre
+
     genreFilter.addEventListener('change', () => {
         const selectedGenreId = genreFilter.value;
         if (selectedGenreId === 'all') {
@@ -131,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Search functionality
+
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const searchTerm = search.value;

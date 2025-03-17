@@ -126,7 +126,7 @@ body {
   background-color: black;
   position: fixed;
   top: 0;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   padding-top: 60px;
@@ -400,8 +400,15 @@ body {
 .link-movies.active {
   color: black;
 }
-
 @media screen and (max-width: 940px) {
+  .sidebar {
+    display: flex; 
+  }
+
+  .content-container {
+    margin-left: 50px;
+  }
+
   .menu-container {
     display: none;
   }
@@ -462,4 +469,42 @@ body {
 .profile-container.active .dropdown-menu {
   display: block;
 }
- 
+
+.slider-container {
+  overflow: hidden;
+}
+
+
+.slider-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.manual-slider-1 {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+}
+
+
+.prev-btn, .next-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color:transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  font-size: 2em;
+}
+
+.prev-btn {
+  left: 10px;
+}
+
+.next-btn {
+  right: 10px;
+}

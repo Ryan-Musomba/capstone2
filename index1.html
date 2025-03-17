@@ -7,9 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
   <link rel="stylesheet" href="index.css" />
-  <style>
-  
-  </style>
+
 </head>
 <body>
   <div class="navbar">
@@ -20,11 +18,10 @@
           <li class="menu-list-item active"><a href="index1.html">Home</a></li>
           <li class="menu-list-item"><a href="index2.html">Movies</a></li>
           <li class="menu-list-item"><a href="tvshow.html">Tv-Shows</a></li>
-         
         </ul>
       </div>
       <div class="profile-container">
-        <i class=" profile-picture fa-solid fa-user"></i>
+        <i class="profile-picture fa-solid fa-user"></i>
         <div class="profile-text-container">
           <span class="profile-text">profile</span>
           <i class="fa-solid fa-caret-down"></i>
@@ -34,33 +31,15 @@
             <li><a href="#" id="logoutBtn">Logout</a></li>
           </ul>
         </div>
-      </div> 
-        <div class="toggle">
-          <i class="fa-solid fa-moon toggle-icon"></i>
-          <i class="fa-solid fa-sun toggle-icon"></i>
-          <div class="toggle-ball"></div>
-        </div>
+      </div>
+      <div class="toggle">
+        <i class="fa-solid fa-moon toggle-icon"></i>
+        <i class="fa-solid fa-sun toggle-icon"></i>
+        <div class="toggle-ball"></div>
       </div>
     </div>
   </div>
-      <div class="profile-container">
-        
-        <div class="profile-text-container">
-          <i class=" profile-picture fa-solid fa-user"></i>
-          <span class="profile-text">profile</span>
-          <i class="fa-solid fa-caret-down"></i>
-        </div>
-        <div class="dropdown-menu" id="dropdownMenu">
-          <a href="home.html" id="logoutBtn">Logout</a>
-      </div>
-        <div class="toggle">
-          <i class="fa-solid fa-moon toggle-icon"></i>
-          <i class="fa-solid fa-sun toggle-icon"></i>
-          <div class="toggle-ball"></div>
-        </div>
-      </div>
-    </div>
-  </div>
+
   <div class="sidebar">
     <a href="index1.html"><i class="sidebar-icon fa-solid fa-house-chimney"></i></a> 
     <a href="index2.html"><i class="sidebar-icon fa-solid fa-film"></i></a> 
@@ -70,32 +49,35 @@
       <i class="sidebar-icon fa-solid fa-user-group"></i>
     </div>
   </div>
+
   <div class="container">
     <div class="content-container">
-      <div
-        class="featured-content"
-        
-      >
+      <div class="featured-content">
         <h2 class="featured-title"></h2>
-        <p class="featured-text">
-       
-        </p>
+        <p class="featured-text"></p>
         <button class="featured-button">WATCH NOW</button>
       </div>
-      
-      
-      <a href="index2.html" class="link-movies">Movies</a>
-     
-<div class="manual-slider-container" >
-  <div class="manual-slider manual-slider-1"></div>
- 
-</div>
 
-<a href="tvshow.html" class="link-movies"> Tv-Shows</a>
-<div class="manual-slider-container">
-  <div class="manual-slider manual-slider-2"></div>
- 
-</div>
-     <script src="index.js"></script>
+      <a href="index2.html" class="link-movies">Movies</a>
+      <div class="slider-container">
+        <button class="prev-btn">❮</button>
+        <div class="manual-slider-container">
+          <div class="manual-slider manual-slider-1"></div>
+        </div>
+        <button class="next-btn">❯</button>
+      </div>
+
+      <a href="tvshow.html" class="link-movies">Tv-Shows</a>
+      <div class="slider-container">
+        <button class="prev-btn">❮</button>
+        <div class="manual-slider-container">
+          <div class="manual-slider manual-slider-2"></div>
+        </div>
+        <button class="next-btn">❯</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="index.js"></script>
 </body>
 </html>

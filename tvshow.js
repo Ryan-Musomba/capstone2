@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const darkmode = localStorage.getItem("darkmode");
 
-    // Apply dark or light mode based on preference
     if (darkmode === "enabled") {
         document.body.classList.remove("darkmode");
         document.body.classList.add("lightmode");
@@ -41,7 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Fetch TV shows
     async function getTVShows() {
         try {
             const res = await fetch(API_URL);
@@ -53,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Fetch TV shows by genre
+
     async function getTVShowsByGenre(genreId) {
         try {
             const res = await fetch(`https://api.themoviedb.org/3/discover/tv?sort_by=popularity.desc&api_key=3fd2be6f0c70a2a598f084ddfb75487c&with_genres=${genreId}&page=1`);
@@ -64,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Display TV shows
+
     function showTVShows(tvShows) {
         tvShown.innerHTML = '';
 
@@ -74,7 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
         tvShows.forEach((show) => {
             const { id, name, poster_path, vote_average, first_air_date, genre_ids } = show;
 
-            // Map genre_ids to genre names
             const genres = genre_ids.map(id => genreMap[id]).join(', ');
 
             const tvShowEl = document.createElement('div');
@@ -110,7 +107,6 @@ document.addEventListener("DOMContentLoaded", () => {
         tvShown.appendChild(tvShowsGrid);
     }
 
-    // Filter TV shows by genre
     genreFilter.addEventListener('change', () => {
         const selectedGenreId = genreFilter.value;
         if (selectedGenreId === 'all') {
@@ -120,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Search functionality
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const searchTerm = search.value;
@@ -136,6 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Initialize
+
     fetchGenres().then(() => getTVShows());
 });
